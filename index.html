@@ -2,811 +2,513 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <meta name="apple-mobile-web-app-title" content="修行追蹤"/>
 <title>修行追蹤</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}
-body{background:#0a0a10;color:#e2ddd4;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;overscroll-behavior:none;min-height:100vh;padding-bottom:60px;}
-input,textarea,select,button{font-family:inherit;}
-::-webkit-scrollbar{display:none;}
-input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
-textarea{-webkit-appearance:none;}
-input{-webkit-appearance:none;}
-
-.page{min-height:100vh;background:#0a0a10;padding-bottom:60px;}
-.card{background:#13131c;border-radius:16px;border:1px solid #22222e;padding:18px;margin-bottom:14px;}
-.label{font-size:10px;letter-spacing:3px;color:#555;text-transform:uppercase;display:block;margin-bottom:6px;}
-.input-base{background:#13131c;border:1px solid #2a2a3a;border-radius:10px;padding:11px 14px;color:#e2ddd4;font-size:16px;outline:none;width:100%;display:block;}
-.btn-gold{background:#c8a86b;border:none;border-radius:12px;color:#0a0a10;font-size:15px;font-weight:bold;cursor:pointer;padding:14px;width:100%;letter-spacing:1px;}
-.btn-back{background:none;border:none;color:#c8a86b;font-size:22px;cursor:pointer;padding:4px 8px;}
-.nav-header{padding:24px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1a1a24;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.nav-btn{padding:14px 0;background:#13131c;border-radius:14px;font-size:13px;cursor:pointer;letter-spacing:0.5px;border:none;width:100%;}
-.pill{flex:1;background:#0d0d16;border-radius:12px;padding:12px 8px;text-align:center;}
-.pill-label{font-size:10px;letter-spacing:2px;margin-bottom:2px;}
-.pill-val{font-size:22px;font-weight:bold;}
-.flash{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#13131c;border-radius:20px;padding:9px 20px;font-size:13px;z-index:9999;pointer-events:none;white-space:nowrap;transition:opacity 0.3s;}
-.tag{font-size:11px;padding:2px 8px;border-radius:20px;background:#1e1a10;color:#c8a86b;}
-.progress-bg{background:#1a1a24;border-radius:5px;}
-.progress-fill{border-radius:5px;transition:width 0.4s;}
-.week-block{flex:0 0 auto;height:5px;border-radius:2px;}
-.circle-btn{border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;border:none;}
-.task-row{display:flex;align-items:center;gap:10px;background:#13131c;border-radius:12px;padding:11px 14px;margin-bottom:8px;border:1px solid #2a2a3a;}
-.quest-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a1a24;}
-.ledger-row{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#13131c;border-radius:10px;margin-bottom:5px;border:1px solid #1a1a24;}
-.chip{padding:8px 14px;border-radius:20px;border:1px solid #2a2a3a;background:#13131c;color:#888;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px;margin:0 6px 6px 0;}
-.w-review-btn{flex:0 0 auto;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;}
-.level-node{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:3px;margin-right:10px;}
-.level-circle{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;}
-select{background:#13131c;border:1px solid #2a2a3a;border-radius:10px;padding:0 10px;color:#c8a86b;font-size:13px;cursor:pointer;height:44px;-webkit-appearance:none;appearance:none;padding-right:8px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:#0a0a10;color:#e2ddd4;font-family:sans-serif;padding-bottom:40px;}
+button,input,textarea,select{font-family:sans-serif;}
+.card{background:#13131c;border-radius:14px;border:1px solid #22222e;padding:16px;margin-bottom:12px;}
+.lbl{font-size:10px;letter-spacing:3px;color:#555;text-transform:uppercase;display:block;margin-bottom:6px;}
+.inp{background:#1a1a24;border:1px solid #2a2a3a;border-radius:10px;padding:12px;color:#e2ddd4;font-size:16px;width:100%;display:block;outline:none;}
+.pg{min-height:100vh;padding-bottom:40px;}
+.hdr{padding:22px 18px 14px;border-bottom:1px solid #1a1a24;display:flex;align-items:center;gap:10px;}
+.back{background:none;border:none;color:#c8a86b;font-size:22px;cursor:pointer;padding:2px 6px;}
+.gold{background:#c8a86b;border:none;border-radius:12px;color:#0a0a10;font-size:15px;font-weight:bold;padding:14px;width:100%;cursor:pointer;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.nb{border:none;border-radius:12px;padding:13px 0;font-size:13px;cursor:pointer;width:100%;background:#13131c;}
+.pill{flex:1;background:#0d0d16;border-radius:12px;padding:11px 6px;text-align:center;border:1px solid #1a1a24;}
+.pv{font-size:21px;font-weight:bold;}
+.pl{font-size:10px;letter-spacing:2px;margin-bottom:2px;}
+.pbg{background:#1a1a24;border-radius:4px;}
+.pf{border-radius:4px;transition:width 0.4s;}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:20px;border:1px solid #2a2a3a;background:#13131c;color:#888;cursor:pointer;font-size:13px;margin:0 5px 5px 0;}
+.trow{display:flex;align-items:center;gap:10px;background:#13131c;border-radius:12px;padding:11px 13px;margin-bottom:7px;border:1px solid #2a2a3a;}
+.qrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #1a1a24;}
+.lrow{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#13131c;border-radius:10px;margin-bottom:5px;}
+.flash{position:fixed;top:18px;left:50%;transform:translateX(-50%);padding:9px 18px;border-radius:20px;border:1px solid #c8a86b;background:#13131c;color:#c8a86b;font-size:13px;z-index:9999;pointer-events:none;white-space:nowrap;opacity:0;transition:opacity 0.3s;}
+select{background:#1a1a24;border:1px solid #2a2a3a;border-radius:10px;padding:0 10px;color:#c8a86b;font-size:13px;height:44px;}
 </style>
 </head>
 <body>
-<div id="app"></div>
-
+<div id="root"></div>
+<div class="flash" id="flash"></div>
 <script>
-// ── Data ─────────────────────────────────────────────────
-var LEVEL_THRESHOLDS=[0,100,250,450,700,1000,1400,1900,2500,3200,4000];
-var LEVEL_TITLES=["凡人","修行者","立志者","精進者","持恒者","明德者","知命者","克己者","致良知","近聖域","聖人"];
-var TOTAL_WEEKS=12;
-var MERIT_LIST=[
-  {id:"m1",label:"早起",exp:5,merit:1},
-  {id:"m2",label:"運動",exp:8,merit:1},
-  {id:"m3",label:"閱讀",exp:6,merit:1},
-  {id:"m4",label:"冥想",exp:5,merit:1},
-  {id:"m5",label:"助人",exp:10,merit:2},
-  {id:"m6",label:"節制飲食",exp:5,merit:1},
-];
-var DEMERIT_LIST=[
-  {id:"d1",label:"發怒",demerit:3},
-  {id:"d2",label:"怠惰",demerit:2},
-  {id:"d3",label:"說謊",demerit:3},
-  {id:"d4",label:"沉迷3C",demerit:2},
-  {id:"d5",label:"暴飲暴食",demerit:1},
-];
-var QUEST_TEMPLATES=[
-  "花15分鐘回顧今天是否朝目標前進",
-  "寫下三件今天可以做的小行動",
-  "找一位可以支持你目標的人聊聊",
-  "清除一個阻礙你專注的環境干擾",
-  "花10分鐘學習與目標相關的知識",
-  "設定明天最重要的一件事",
-  "休息15分鐘，完全放鬆後再繼續",
-  "回顧上週的進度，調整今日計劃",
-  "寫下你對目標的信念宣言",
-  "做一件讓身體充滿活力的事",
-  "整理你的工作或學習空間",
-  "拒絕一件會分散注意力的邀約",
-  "提前準備明天需要的資源",
-  "記錄今天最有成效的一段時間",
-  "給自己一個小獎勵，慶祝今日進步",
-  "思考：若三個月後成功了，你會感謝今天的哪個決定？",
-  "聯繫一個對你有正面影響的人",
-  "做五分鐘的深呼吸或伸展",
-  "把一個拖延已久的小任務完成",
-  "寫下讓你分心的擔憂，然後放下它",
-];
+var LVTH=[0,100,250,450,700,1000,1400,1900,2500,3200,4000];
+var LVTL=["凡人","修行者","立志者","精進者","持恒者","明德者","知命者","克己者","致良知","近聖域","聖人"];
+var WKS=12;
+var ML=[{id:"m1",label:"早起",exp:5,merit:1},{id:"m2",label:"運動",exp:8,merit:1},{id:"m3",label:"閱讀",exp:6,merit:1},{id:"m4",label:"冥想",exp:5,merit:1},{id:"m5",label:"助人",exp:10,merit:2},{id:"m6",label:"節制飲食",exp:5,merit:1}];
+var DL=[{id:"d1",label:"發怒",demerit:3},{id:"d2",label:"怠惰",demerit:2},{id:"d3",label:"說謊",demerit:3},{id:"d4",label:"沉迷3C",demerit:2},{id:"d5",label:"暴飲暴食",demerit:1}];
+var QT=["花15分鐘回顧今天是否朝目標前進","寫下三件今天可以做的小行動","找一位可以支持你目標的人聊聊","清除一個阻礙你專注的環境干擾","花10分鐘學習與目標相關的知識","設定明天最重要的一件事","休息15分鐘完全放鬆後再繼續","回顧上週進度調整今日計劃","寫下你對目標的信念宣言","做一件讓身體充滿活力的事","整理你的工作或學習空間","拒絕一件會分散注意力的邀約","提前準備明天需要的資源","記錄今天最有成效的一段時間","給自己一個小獎勵慶祝今日進步","思考三個月後成功你會感謝今天哪個決定","聯繫一個對你有正面影響的人","做五分鐘深呼吸或伸展","把一個拖延已久的小任務完成","寫下讓你分心的擔憂然後放下它"];
 
-// ── Helpers ───────────────────────────────────────────────
-function getToday(){return new Date().toISOString().slice(0,10);}
-function ls(k,v){
-  if(v===undefined){try{var r=localStorage.getItem(k);return r?JSON.parse(r):null;}catch(e){return null;}}
-  try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}
+function today(){return new Date().toISOString().slice(0,10);}
+function lsGet(k){try{var v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function weekNum(sd){if(!sd)return 1;var d=(new Date(today())-new Date(sd))/86400000;return Math.min(Math.max(Math.floor(d/7)+1,1),WKS);}
+function lvInfo(exp){var lv=0;for(var i=LVTH.length-1;i>=0;i--){if(exp>=LVTH[i]){lv=i;break;}}var c=LVTH[lv],n=LVTH[lv+1]||LVTH[lv];return{lv:lv,title:LVTL[lv],curr:c,next:n,toNext:n-exp,pct:lv>=LVTH.length-1?100:Math.round((exp-c)/(n-c)*100)};}
+function srand(s){var x=Math.sin(s+1)*10000;return x-Math.floor(x);}
+function dailyQ(ds){var s=ds.split("-").reduce(function(a,b){return a*100+parseInt(b);},0);var p=[],u={},i=0;while(p.length<3&&i<50){var idx=Math.floor(srand(s+i)*QT.length);if(!u[idx]){u[idx]=1;p.push({id:"dq"+idx,text:QT[idx],exp:15});}i++;}return p;}
+function weekDates(wn,sd){if(!sd)return[];var s=new Date(sd);s.setDate(s.getDate()+(wn-1)*7);var a=[];for(var i=0;i<7;i++){var d=new Date(s);d.setDate(s.getDate()+i);a.push(d.toISOString().slice(0,10));}return a;}
+
+// State
+var S={
+  screen:"main",
+  goal:lsGet("g-goal"),
+  exp:lsGet("g-exp")||0,
+  merit:lsGet("g-merit")||0,
+  demerit:lsGet("g-demerit")||0,
+  tasks:lsGet("g-tasks")||{},
+  ledger:lsGet("g-ledger")||[],
+  cm:lsGet("g-cm")||{},
+  cd:lsGet("g-cd")||{},
+  cq:lsGet("g-cq")||{},
+  streak:lsGet("g-streak")||0,
+  lastActive:lsGet("g-lastActive"),
+  weights:lsGet("g-weights")||{},
+  reviews:lsGet("g-reviews")||{},
+  rw:1
+};
+
+var flashTmr=null;
+function flash(msg,color){
+  color=color||"#c8a86b";
+  var f=document.getElementById("flash");
+  if(!f)return;
+  f.textContent=msg;f.style.color=color;f.style.borderColor=color;f.style.opacity="1";
+  if(flashTmr)clearTimeout(flashTmr);
+  flashTmr=setTimeout(function(){f.style.opacity="0";},2000);
 }
-function getWeekNum(startDate){
-  if(!startDate)return 1;
-  var diff=(new Date(getToday())-new Date(startDate))/86400000;
-  return Math.min(Math.max(Math.floor(diff/7)+1,1),TOTAL_WEEKS);
+
+function bump(){
+  var t=today();
+  if(S.lastActive===t)return;
+  var y=new Date();y.setDate(y.getDate()-1);var ys=y.toISOString().slice(0,10);
+  S.streak=S.lastActive===ys?S.streak+1:1;S.lastActive=t;
+  lsSet("g-streak",S.streak);lsSet("g-lastActive",t);
 }
-function getLvInfo(exp){
-  var lv=0;
-  for(var i=LEVEL_THRESHOLDS.length-1;i>=0;i--){if(exp>=LEVEL_THRESHOLDS[i]){lv=i;break;}}
-  var curr=LEVEL_THRESHOLDS[lv],next=LEVEL_THRESHOLDS[lv+1]||LEVEL_THRESHOLDS[lv];
-  var pct=lv>=LEVEL_THRESHOLDS.length-1?100:Math.round((exp-curr)/(next-curr)*100);
-  return{lv:lv,title:LEVEL_TITLES[lv],curr:curr,next:next,pct:pct,toNext:next-exp};
+
+function addExp(n){
+  var ol=lvInfo(S.exp).lv;
+  S.exp+=n;lsSet("g-exp",S.exp);
+  var nl=lvInfo(S.exp).lv;
+  if(nl>ol)flash("🎉 升級！成為「"+LVTL[nl]+"」！","#e8c87a");
 }
-function seededRandom(seed){var x=Math.sin(seed+1)*10000;return x-Math.floor(x);}
-function getDailyQuests(dateStr){
-  var seed=dateStr.split("-").reduce(function(a,b){return a*100+parseInt(b);},0);
-  var picks=[],used={},i=0;
-  while(picks.length<3&&i<50){
-    var idx=Math.floor(seededRandom(seed+i)*QUEST_TEMPLATES.length);
-    if(!used[idx]){used[idx]=true;picks.push({id:"dq"+idx,text:QUEST_TEMPLATES[idx],exp:15});}
-    i++;
-  }
-  return picks;
+
+function pushLedger(e){
+  S.ledger=[e].concat(S.ledger).slice(0,200);
+  lsSet("g-ledger",S.ledger);
 }
-function getWeekDates(weekNum,startDate){
-  if(!startDate)return[];
-  var start=new Date(startDate);
-  start.setDate(start.getDate()+(weekNum-1)*7);
-  var arr=[];
-  for(var i=0;i<7;i++){var d=new Date(start);d.setDate(start.getDate()+i);arr.push(d.toISOString().slice(0,10));}
-  return arr;
-}
-function el(tag,attrs,children){
+
+// ── DOM helpers ──
+function h(tag,props,children){
   var e=document.createElement(tag);
-  if(attrs)Object.keys(attrs).forEach(function(k){
-    if(k==="style"&&typeof attrs[k]==="object"){Object.assign(e.style,attrs[k]);}
-    else if(k.startsWith("on")){e.addEventListener(k.slice(2).toLowerCase(),attrs[k]);}
-    else if(k==="className"){e.className=attrs[k];}
-    else{e.setAttribute(k,attrs[k]);}
+  if(props)Object.keys(props).forEach(function(k){
+    if(k==="style"&&typeof props[k]==="object"){Object.assign(e.style,props[k]);}
+    else if(k[0]==="o"&&k[1]==="n"){e.addEventListener(k.slice(2).toLowerCase(),props[k]);}
+    else if(k==="cls"){e.className=props[k];}
+    else{e.setAttribute(k,props[k]);}
   });
-  if(children){
-    if(!Array.isArray(children))children=[children];
-    children.forEach(function(c){
-      if(c==null||c===false)return;
-      if(typeof c==="string"||typeof c==="number"){e.appendChild(document.createTextNode(c));}
-      else{e.appendChild(c);}
+  if(children!=null){
+    (Array.isArray(children)?children:[children]).forEach(function(c){
+      if(c==null||c===false||c===undefined)return;
+      e.appendChild(typeof c==="object"?c:document.createTextNode(String(c)));
     });
   }
   return e;
 }
-function div(attrs,children){return el("div",attrs,children);}
-function btn(attrs,children){return el("button",attrs,children);}
-function span(attrs,children){return el("span",attrs,children);}
+function div(p,c){return h("div",p,c);}
+function btn(p,c){return h("button",p,c);}
+function sp(p,c){return h("span",p,c);}
+function inp(p){return h("input",p);}
+function ta(p){return h("textarea",p);}
 
-// ── State ─────────────────────────────────────────────────
-var state={
-  screen:"main",
-  goal:ls("rpg-goal"),
-  exp:ls("rpg-exp")||0,
-  merit:ls("rpg-merit")||0,
-  demerit:ls("rpg-demerit")||0,
-  dailyTasks:ls("rpg-dailyTasks")||{},
-  ledger:ls("rpg-ledger")||[],
-  checkedMerits:ls("rpg-checkedMerits")||{},
-  checkedDemerits:ls("rpg-checkedDemerits")||{},
-  completedQuests:ls("rpg-completedQuests")||{},
-  streak:ls("rpg-streak")||0,
-  lastActive:ls("rpg-lastActive"),
-  weights:ls("rpg-weights")||{},
-  weekReviews:ls("rpg-weekReviews")||{},
-  reviewWeek:1,
-  flashTimer:null,
-};
-
-function setState(patch){
-  Object.assign(state,patch);
-  render();
+function pb(val,max,color,height){
+  height=height||5;color=color||"#c8a86b";
+  var bg=div({cls:"pbg",style:{height:height+"px"}});
+  bg.appendChild(div({cls:"pf",style:{height:"100%",width:Math.min(max?val/max*100:0,100)+"%",background:color}}));
+  return bg;
+}
+function pill(label,value,color){
+  var p=div({cls:"pill",style:{borderColor:color+"33",border:"1px solid "+color+"33"}});
+  p.appendChild(div({cls:"pl",style:{color:color}},label));
+  p.appendChild(div({cls:"pv",style:{color:color}},String(value)));
+  return p;
+}
+function pills(){
+  var d=div({style:{display:"flex",gap:"8px",marginBottom:"10px"}});
+  for(var i=0;i<arguments.length;i++)d.appendChild(arguments[i]);
+  return d;
 }
 
-function showFlash(msg,color){
-  color=color||"#c8a86b";
-  if(state.flashTimer)clearTimeout(state.flashTimer);
-  var f=document.getElementById("flash");
-  if(f){f.textContent=msg;f.style.color=color;f.style.borderColor=color;f.style.opacity="1";}
-  state.flashTimer=setTimeout(function(){var f=document.getElementById("flash");if(f)f.style.opacity="0";},2000);
-}
-
-function updateStreak(){
-  var today=getToday();
-  if(state.lastActive===today)return;
-  var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
-  var yStr=yesterday.toISOString().slice(0,10);
-  var ns=state.lastActive===yStr?state.streak+1:1;
-  ls("rpg-streak",ns);ls("rpg-lastActive",today);
-  state.streak=ns;state.lastActive=today;
-}
-
-function gainExp(amount){
-  var oldLv=getLvInfo(state.exp).lv;
-  var newExp=state.exp+amount;
-  state.exp=newExp;ls("rpg-exp",newExp);
-  var newLv=getLvInfo(newExp).lv;
-  if(newLv>oldLv)showFlash("🎉 升級！成為「"+LEVEL_TITLES[newLv]+"」！","#e8c87a");
-}
-
-function addLedgerEntry(entry){
-  var nl=[entry].concat(state.ledger).slice(0,300);
-  state.ledger=nl;ls("rpg-ledger",nl);
-}
-
-// ── Actions ───────────────────────────────────────────────
-function setupGoal(text,targetWeight){
-  var g={text:text,startDate:getToday(),targetWeight:parseFloat(targetWeight)||null};
-  state.goal=g;ls("rpg-goal",g);
-  setState({screen:"main"});
-}
-
-function addTask(text,expVal){
-  var today=getToday();
-  var list=state.dailyTasks[today]||[];
-  var t={id:Date.now(),text:text,exp:parseInt(expVal)||10,done:false};
-  var next=Object.assign({},state.dailyTasks);
-  next[today]=list.concat([t]);
-  state.dailyTasks=next;ls("rpg-dailyTasks",next);
-  render();
-}
-
-function completeTask(id){
-  var today=getToday();
-  var list=state.dailyTasks[today]||[];
-  var task=null;
-  for(var i=0;i<list.length;i++){if(list[i].id===id){task=list[i];break;}}
-  if(!task||task.done)return;
-  var next=Object.assign({},state.dailyTasks);
-  next[today]=list.map(function(t){return t.id===id?Object.assign({},t,{done:true}):t;});
-  state.dailyTasks=next;ls("rpg-dailyTasks",next);
-  gainExp(task.exp);
-  addLedgerEntry({date:today,type:"task",label:task.text,value:task.exp});
-  updateStreak();
-  showFlash("+"+task.exp+" EXP　任務完成！");
-  render();
-}
-
-function deleteTask(id){
-  var today=getToday();
-  var next=Object.assign({},state.dailyTasks);
-  next[today]=(state.dailyTasks[today]||[]).filter(function(t){return t.id!==id;});
-  state.dailyTasks=next;ls("rpg-dailyTasks",next);
-  render();
-}
-
-function completeQuest(quest){
-  var today=getToday();
-  var key=today+"__"+quest.id;
-  if(state.completedQuests[key])return;
-  var cq=Object.assign({},state.completedQuests);cq[key]=true;
-  state.completedQuests=cq;ls("rpg-completedQuests",cq);
-  gainExp(quest.exp);
-  addLedgerEntry({date:today,type:"quest",label:quest.text,value:quest.exp});
-  updateStreak();
-  showFlash("+"+quest.exp+" EXP　天命任務完成！","#a87bde");
-  render();
-}
-
-function toggleMerit(item){
-  var today=getToday();var key=today+"__"+item.id;
-  if(state.checkedMerits[key])return;
-  var cm=Object.assign({},state.checkedMerits);cm[key]=true;
-  state.checkedMerits=cm;ls("rpg-checkedMerits",cm);
-  state.merit+=item.merit;ls("rpg-merit",state.merit);
-  gainExp(item.exp);
-  addLedgerEntry({date:today,type:"merit",label:item.label,merit:item.merit,exp:item.exp});
-  updateStreak();
-  showFlash("+"+item.merit+" 功　+"+item.exp+" EXP","#6bc88a");
-  render();
-}
-
-function toggleDemerit(item){
-  var today=getToday();var key=today+"__"+item.id;
-  if(state.checkedDemerits[key])return;
-  var cd=Object.assign({},state.checkedDemerits);cd[key]=true;
-  state.checkedDemerits=cd;ls("rpg-checkedDemerits",cd);
-  state.demerit+=item.demerit;ls("rpg-demerit",state.demerit);
-  addLedgerEntry({date:today,type:"demerit",label:item.label,demerit:item.demerit});
-  showFlash("+"+item.demerit+" 過","#e06b6b");
-  render();
-}
-
-function logWeight(w){
-  var today=getToday();
-  var next=Object.assign({},state.weights);next[today]=w;
-  state.weights=next;ls("rpg-weights",next);
-  showFlash("體重記錄："+w+" kg","#7bc8e0");
-  render();
-}
-
-function saveReview(wn,text){
-  var next=Object.assign({},state.weekReviews);next[wn]=text;
-  state.weekReviews=next;ls("rpg-weekReviews",next);
-  showFlash("週回顧已儲存","#6bc88a");
-}
-
-// ── SVG mini chart ─────────────────────────────────────────
-function makeChart(data,targetWeight){
-  if(!data||data.length<2)return null;
-  var W=window.innerWidth-56,H=160;
-  var vals=data.map(function(d){return d.w;});
-  if(targetWeight)vals.push(targetWeight);
-  var minV=Math.min.apply(null,vals)-1,maxV=Math.max.apply(null,vals)+1;
-  function px(i){return Math.round((i/(data.length-1))*W);}
-  function py(v){return Math.round(H-((v-minV)/(maxV-minV))*H);}
-  var pts=data.map(function(d,i){return px(i)+","+py(d.w);}).join(" ");
-  var svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
-  svg.setAttribute("width",W);svg.setAttribute("height",H+20);svg.style.display="block";
-  // target line
-  if(targetWeight){
-    var tl=document.createElementNS("http://www.w3.org/2000/svg","line");
-    var ty=py(targetWeight);
-    tl.setAttribute("x1","0");tl.setAttribute("y1",ty);tl.setAttribute("x2",W);tl.setAttribute("y2",ty);
-    tl.setAttribute("stroke","#c8a86b");tl.setAttribute("stroke-dasharray","4 4");tl.setAttribute("stroke-width","1.5");
-    svg.appendChild(tl);
-  }
-  // line
-  var polyline=document.createElementNS("http://www.w3.org/2000/svg","polyline");
-  polyline.setAttribute("points",pts);
-  polyline.setAttribute("fill","none");polyline.setAttribute("stroke","#7bc8e0");polyline.setAttribute("stroke-width","2");
-  svg.appendChild(polyline);
-  // dots + labels
-  data.forEach(function(d,i){
-    if(i%Math.max(1,Math.floor(data.length/6))===0||i===data.length-1){
-      var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
-      c.setAttribute("cx",px(i));c.setAttribute("cy",py(d.w));c.setAttribute("r","3");c.setAttribute("fill","#7bc8e0");
-      svg.appendChild(c);
-      var t=document.createElementNS("http://www.w3.org/2000/svg","text");
-      t.setAttribute("x",px(i));t.setAttribute("y",H+14);t.setAttribute("text-anchor","middle");
-      t.setAttribute("fill","#555");t.setAttribute("font-size","9");t.textContent=d.date;
-      svg.appendChild(t);
-    }
-  });
-  return svg;
-}
-
-// ── Screens ───────────────────────────────────────────────
+// ── Screens ──
 function renderSetup(){
-  var goalVal="",twVal="";
-  var wrap=div({className:"page",style:{padding:"28px 24px"}});
-  if(state.goal){goalVal=state.goal.text;twVal=state.goal.targetWeight||"";}
+  var wrap=div({cls:"pg",style:{padding:"28px 18px"}});
   wrap.appendChild(div({style:{fontSize:"10px",letterSpacing:"4px",color:"#555",marginBottom:"6px",textTransform:"uppercase"}},"初始設定"));
-  wrap.appendChild(div({style:{fontSize:"26px",fontWeight:"bold",color:"#c8a86b",marginBottom:"28px"}},"設定你的12週目標"));
-  wrap.appendChild(el("label",{className:"label"},"12週後你想達成什麼？"));
-  var goalInput=el("textarea",{className:"input-base",placeholder:"例：完成書的初稿、增肌5kg、建立早起習慣…",style:{resize:"none",height:"90px",marginBottom:"16px",fontSize:"16px"}});
-  goalInput.value=goalVal;
-  wrap.appendChild(goalInput);
-  wrap.appendChild(el("label",{className:"label"},"目標體重（選填，kg）"));
-  var twInput=el("input",{type:"number",className:"input-base",placeholder:"例：70",style:{marginBottom:"28px"}});
-  twInput.value=twVal;
-  wrap.appendChild(twInput);
-  wrap.appendChild(btn({className:"btn-gold",onClick:function(){
-    var t=goalInput.value.trim();
-    if(!t)return;
-    setupGoal(t,twInput.value);
+  wrap.appendChild(div({style:{fontSize:"24px",fontWeight:"bold",color:"#c8a86b",marginBottom:"24px"}},"設定你的12週目標"));
+  wrap.appendChild(h("label",{cls:"lbl"},"12週後你想達成什麼？"));
+  var gi=ta({cls:"inp",placeholder:"例：完成書的初稿、增肌5kg、建立早起習慣…",style:{resize:"none",height:"90px",marginBottom:"14px",fontSize:"16px"}});
+  if(S.goal)gi.value=S.goal.text;
+  wrap.appendChild(gi);
+  wrap.appendChild(h("label",{cls:"lbl"},"目標體重（選填，kg）"));
+  var ti=inp({type:"number",cls:"inp",placeholder:"例：70",style:{marginBottom:"26px"}});
+  if(S.goal&&S.goal.targetWeight)ti.value=S.goal.targetWeight;
+  wrap.appendChild(ti);
+  wrap.appendChild(btn({cls:"gold",onClick:function(){
+    var t=gi.value.trim();if(!t)return;
+    var g={text:t,startDate:today(),targetWeight:parseFloat(ti.value)||null};
+    S.goal=g;lsSet("g-goal",g);S.screen="main";render();
   }},"踏上修行之路 →"));
   return wrap;
 }
 
 function renderMain(){
-  var today=getToday();
-  var lv=getLvInfo(state.exp);
-  var weekNum=state.goal?getWeekNum(state.goal.startDate):1;
-  var weekPct=Math.round((weekNum/TOTAL_WEEKS)*100);
-  var todayTasks=state.dailyTasks[today]||[];
-  var doneTasks=todayTasks.filter(function(t){return t.done;}).length;
-  var quests=getDailyQuests(today);
-  var doneQ=quests.filter(function(q){return state.completedQuests[today+"__"+q.id];}).length;
-  var wEntries=Object.entries(state.weights).sort(function(a,b){return a[0]>b[0]?1:-1;});
-  var latestW=wEntries.length?wEntries[wEntries.length-1][1]:null;
+  var td=today();
+  var lv=lvInfo(S.exp);
+  var wn=S.goal?weekNum(S.goal.startDate):1;
+  var wp=Math.round((wn/WKS)*100);
+  var tt=S.tasks[td]||[];
+  var dt=tt.filter(function(t){return t.done;}).length;
+  var qs=dailyQ(td);
+  var dq=qs.filter(function(q){return S.cq[td+"__"+q.id];}).length;
+  var we=Object.entries(S.weights).sort(function(a,b){return a[0]>b[0]?1:-1;});
+  var lw=we.length?we[we.length-1][1]:null;
 
-  var wrap=div({className:"page"});
+  var wrap=div({cls:"pg"});
 
   // header
-  var hdr=div({style:{padding:"20px 20px 14px",borderBottom:"1px solid #1a1a24"}});
-  hdr.appendChild(div({className:"label"},"第 "+weekNum+" 週　12週計劃"));
-  hdr.appendChild(div({style:{fontSize:"15px",lineHeight:"1.4",color:"#e2ddd4",marginBottom:"12px"}},state.goal?state.goal.text:""));
-  hdr.appendChild(div({style:{display:"flex",justifyContent:"space-between",fontSize:"11px",color:"#555",marginBottom:"5px"}},[span({},"週次進度"),span({style:{color:"#c8a86b"}},weekNum+"/"+TOTAL_WEEKS+"週　"+weekPct+"%")]));
-  var wbar=div({style:{display:"flex",gap:"2px",marginBottom:"6px"}});
-  for(var i=0;i<TOTAL_WEEKS;i++){
-    wbar.appendChild(div({className:"week-block",style:{flex:"1",background:i<weekNum?"#c8a86b":"#1a1a24"}}));
-  }
-  hdr.appendChild(wbar);
-  wrap.appendChild(hdr);
+  var hd=div({style:{padding:"20px 18px 14px",borderBottom:"1px solid #1a1a24"}});
+  hd.appendChild(div({cls:"lbl"},"第 "+wn+" 週　12週計劃"));
+  hd.appendChild(div({style:{fontSize:"15px",lineHeight:"1.4",marginBottom:"12px"}},S.goal?S.goal.text:""));
+  hd.appendChild(div({style:{display:"flex",justifyContent:"space-between",fontSize:"11px",color:"#555",marginBottom:"5px"}},[sp({},"週次進度"),sp({style:{color:"#c8a86b"}},wn+"/"+WKS+"週 "+wp+"%")]));
+  var wbar=div({style:{display:"flex",gap:"2px"}});
+  for(var i=0;i<WKS;i++)wbar.appendChild(div({style:{flex:"1",height:"5px",borderRadius:"2px",background:i<wn?"#c8a86b":"#1a1a24"}}));
+  hd.appendChild(wbar);
+  wrap.appendChild(hd);
 
-  var body=div({style:{padding:"14px 20px 0"}});
+  var body=div({style:{padding:"14px 18px 0"}});
 
   // char card
-  var cc=div({className:"card"});
+  var cc=div({cls:"card"});
   var crow=div({style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"12px"}});
-  var cleft=div({});
-  cleft.appendChild(div({className:"label"},"角色"));
-  cleft.appendChild(div({style:{fontSize:"20px",fontWeight:"bold",color:"#c8a86b"}},lv.title));
-  cleft.appendChild(div({style:{fontSize:"12px",color:"#666"}},"Lv."+lv.lv+"　"+state.exp+" EXP　距下一級 "+lv.toNext+" EXP"));
-  crow.appendChild(cleft);
-  var cright=div({style:{textAlign:"right"}});
-  cright.appendChild(div({style:{fontSize:"10px",color:"#555",letterSpacing:"2px",marginBottom:"2px"}},"連續打卡"));
-  cright.appendChild(div({style:{fontSize:"32px",fontWeight:"bold",color:state.streak>=7?"#e8c87a":state.streak>=3?"#c8a86b":"#666",lineHeight:"1"}},String(state.streak)));
-  cright.appendChild(div({style:{fontSize:"10px",color:"#555"}},"天"));
-  crow.appendChild(cright);
-  cc.appendChild(crow);
-  var pbg=div({className:"progress-bg",style:{height:"5px"}});
-  var pmax=lv.next-lv.curr||1;
-  pbg.appendChild(div({className:"progress-fill",style:{height:"100%",width:Math.min((state.exp-lv.curr)/pmax*100,100)+"%",background:"#c8a86b"}}));
-  cc.appendChild(pbg);
-  var pills=div({style:{display:"flex",gap:"8px",marginTop:"12px"}});
-  [["功德",state.merit,"#6bc88a"],["過失",state.demerit,"#e06b6b"]].forEach(function(p){
-    var pl=div({className:"pill",style:{borderColor:p[2]+"22",border:"1px solid "+p[2]+"22"}});
-    pl.appendChild(div({className:"pill-label",style:{color:p[2]}},p[0]));
-    pl.appendChild(div({className:"pill-val",style:{color:p[2]}},String(p[1])));
-    pills.appendChild(pl);
-  });
-  if(latestW){
-    var wp=div({className:"pill",style:{border:"1px solid #7bc8e022"}});
-    wp.appendChild(div({className:"pill-label",style:{color:"#7bc8e0"}},"體重kg"));
-    wp.appendChild(div({className:"pill-val",style:{color:"#7bc8e0"}},String(latestW)));
-    pills.appendChild(wp);
-  }
-  cc.appendChild(pills);
-  body.appendChild(cc);
+  var cl=div({});
+  cl.appendChild(div({cls:"lbl"},"角色"));
+  cl.appendChild(div({style:{fontSize:"20px",fontWeight:"bold",color:"#c8a86b"}},lv.title));
+  cl.appendChild(div({style:{fontSize:"12px",color:"#666"}},"Lv."+lv.lv+" | "+S.exp+" EXP | 距下一級 "+lv.toNext));
+  crow.appendChild(cl);
+  var cr=div({style:{textAlign:"right"}});
+  cr.appendChild(div({style:{fontSize:"10px",color:"#555",letterSpacing:"2px",marginBottom:"2px"}},"連續打卡"));
+  cr.appendChild(div({style:{fontSize:"30px",fontWeight:"bold",color:S.streak>=7?"#e8c87a":S.streak>=3?"#c8a86b":"#666",lineHeight:"1"}},String(S.streak)));
+  cr.appendChild(div({style:{fontSize:"10px",color:"#555"}},"天"));
+  crow.appendChild(cr);cc.appendChild(crow);
+  cc.appendChild(pb(S.exp-lv.curr,lv.next-lv.curr,"#c8a86b",5));
+  var ps=div({style:{display:"flex",gap:"8px",marginTop:"10px"}});
+  ps.appendChild(pill("功德",S.merit,"#6bc88a"));
+  ps.appendChild(pill("過失",S.demerit,"#e06b6b"));
+  if(lw)ps.appendChild(pill("體重kg",lw,"#7bc8e0"));
+  cc.appendChild(ps);body.appendChild(cc);
 
   // quests
-  var qc=div({className:"card"});
-  var qhdr=div({style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"10px"}});
-  qhdr.appendChild(div({className:"label"},"今日天命任務"));
-  qhdr.appendChild(span({style:{fontSize:"11px",color:"#a87bde"}},doneQ+"/3"));
-  qc.appendChild(qhdr);
-  quests.forEach(function(quest){
-    var done=state.completedQuests[today+"__"+quest.id];
-    var row=div({className:"quest-row",style:{opacity:done?"0.5":"1"}});
-    var cb=btn({style:{width:"22px",height:"22px",borderRadius:"6px",border:done?"none":"1px solid #a87bde",background:done?"#a87bde":"transparent",cursor:done?"default":"pointer",flexShrink:"0",fontSize:"11px",color:"#0a0a10",display:"flex",alignItems:"center",justifyContent:"center"},onClick:function(){completeQuest(quest);}},done?"✓":"");
-    row.appendChild(cb);
-    row.appendChild(div({style:{flex:"1",fontSize:"13px",color:done?"#555":"#e2ddd4",textDecoration:done?"line-through":"none"}},quest.text));
-    row.appendChild(span({style:{fontSize:"11px",color:"#a87bde",background:"#1a1028",padding:"2px 8px",borderRadius:"20px"}},"+"+quest.exp));
+  var qc=div({cls:"card"});
+  var qh=div({style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"10px"}});
+  qh.appendChild(div({cls:"lbl"},"今日天命任務"));
+  qh.appendChild(sp({style:{fontSize:"11px",color:"#a87bde"}},dq+"/3"));
+  qc.appendChild(qh);
+  qs.forEach(function(q){
+    var done=S.cq[td+"__"+q.id];
+    var row=div({cls:"qrow",style:{opacity:done?"0.5":"1"}});
+    row.appendChild(btn({style:{width:"22px",height:"22px",borderRadius:"6px",border:done?"none":"1px solid #a87bde",background:done?"#a87bde":"transparent",flexShrink:"0",fontSize:"11px",color:"#0a0a10",cursor:done?"default":"pointer"},onClick:function(){
+      if(done)return;
+      var k=td+"__"+q.id;S.cq[k]=true;lsSet("g-cq",S.cq);
+      addExp(q.exp);pushLedger({date:td,type:"quest",label:q.text,value:q.exp});bump();
+      flash("+"+q.exp+" EXP 天命任務完成！","#a87bde");render();
+    }},done?"✓":""));
+    row.appendChild(div({style:{flex:"1",fontSize:"13px",color:done?"#555":"#e2ddd4",textDecoration:done?"line-through":"none"}},q.text));
+    row.appendChild(sp({style:{fontSize:"11px",color:"#a87bde",background:"#1a1028",padding:"2px 8px",borderRadius:"20px"}},"+"+q.exp));
     qc.appendChild(row);
   });
   body.appendChild(qc);
 
   // tasks preview
-  var tc=div({className:"card",style:{cursor:"pointer"},onClick:function(){setState({screen:"tasks"});}});
-  var thdr=div({style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"8px"}});
-  thdr.appendChild(div({className:"label"},"今日任務"));
-  thdr.appendChild(span({style:{fontSize:"11px",color:"#c8a86b"}},doneTasks+"/"+todayTasks.length+"　→"));
-  tc.appendChild(thdr);
-  var tpbg=div({className:"progress-bg",style:{height:"4px"}});
-  tpbg.appendChild(div({className:"progress-fill",style:{height:"100%",width:Math.min(todayTasks.length?(doneTasks/todayTasks.length*100):0,100)+"%",background:"#c8a86b"}}));
-  tc.appendChild(tpbg);
-  if(!todayTasks.length)tc.appendChild(div({style:{fontSize:"12px",color:"#333",marginTop:"8px"}},"點擊新增任務"));
+  var tc=div({cls:"card",style:{cursor:"pointer"},onClick:function(){S.screen="tasks";render();}});
+  var th=div({style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"8px"}});
+  th.appendChild(div({cls:"lbl"},"今日任務"));
+  th.appendChild(sp({style:{fontSize:"11px",color:"#c8a86b"}},dt+"/"+tt.length+" →"));
+  tc.appendChild(th);tc.appendChild(pb(dt,tt.length||1,"#c8a86b",4));
+  if(!tt.length)tc.appendChild(div({style:{fontSize:"12px",color:"#333",marginTop:"6px"}},"點擊新增任務"));
   body.appendChild(tc);
 
-  // nav grid
-  var ng=div({className:"grid2"});
+  // nav
+  var ng=div({cls:"grid2"});
   [{id:"ledger",icon:"✦",label:"功過帳本",color:"#6bc88a"},{id:"weight",icon:"◉",label:"體重紀錄",color:"#7bc8e0"},{id:"review",icon:"◎",label:"週回顧",color:"#a87bde"},{id:"tasks",icon:"⚔",label:"今日任務",color:"#c8a86b"}].forEach(function(item){
-    var b=btn({className:"nav-btn",style:{color:item.color,border:"1px solid "+item.color+"33"},onClick:function(){
-      var ns={screen:item.id};
-      if(item.id==="review")ns.reviewWeek=weekNum;
-      setState(ns);
-    }},item.icon+"　"+item.label);
-    ng.appendChild(b);
+    ng.appendChild(btn({cls:"nb",style:{color:item.color,border:"1px solid "+item.color+"33"},onClick:function(){if(item.id==="review")S.rw=wn;S.screen=item.id;render();}},item.icon+" "+item.label));
   });
   body.appendChild(ng);
 
-  // level path
-  var lc=div({className:"card"});
-  lc.appendChild(div({className:"label"},"修行境界"));
-  var lrow=div({style:{display:"flex",overflowX:"auto",paddingBottom:"4px"}});
-  LEVEL_TITLES.forEach(function(t,i){
-    var node=div({className:"level-node"});
-    var circ=div({className:"level-circle",style:{
-      background:lv.lv>i?"#c8a86b":lv.lv===i?"#1e1a10":"#13131c",
-      color:lv.lv>i?"#0a0a10":lv.lv===i?"#c8a86b":"#333",
-      border:lv.lv===i?"2px solid #c8a86b":"2px solid transparent",
-    }},String(i));
-    node.appendChild(circ);
-    node.appendChild(div({style:{fontSize:"8px",color:lv.lv>=i?"#777":"#2a2a3a",whiteSpace:"nowrap"}},t));
-    lrow.appendChild(node);
+  // levels
+  var lc=div({cls:"card"});lc.appendChild(div({cls:"lbl"},"修行境界"));
+  var lr=div({style:{display:"flex",overflowX:"auto",paddingBottom:"4px"}});
+  LVTL.forEach(function(t,i){
+    var n=div({style:{display:"flex",flexDirection:"column",alignItems:"center",gap:"3px",marginRight:"10px",flexShrink:"0"}});
+    n.appendChild(div({style:{width:"26px",height:"26px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"10px",fontWeight:"bold",background:lv.lv>i?"#c8a86b":lv.lv===i?"#1e1a10":"#13131c",color:lv.lv>i?"#0a0a10":lv.lv===i?"#c8a86b":"#333",border:lv.lv===i?"2px solid #c8a86b":"2px solid transparent"}},String(i)));
+    n.appendChild(div({style:{fontSize:"8px",color:lv.lv>=i?"#777":"#2a2a3a",whiteSpace:"nowrap"}},t));
+    lr.appendChild(n);
   });
-  lc.appendChild(lrow);
-  body.appendChild(lc);
-
-  // change goal
-  var cg=div({style:{textAlign:"center",marginTop:"8px",paddingBottom:"20px"}});
-  cg.appendChild(btn({style:{background:"none",border:"none",color:"#333",fontSize:"11px",cursor:"pointer",letterSpacing:"2px",textDecoration:"underline"},onClick:function(){setState({screen:"setup"});}},  "修改目標"));
-  body.appendChild(cg);
-
-  wrap.appendChild(body);
-  return wrap;
+  lc.appendChild(lr);body.appendChild(lc);
+  body.appendChild(div({style:{textAlign:"center",marginTop:"8px",paddingBottom:"16px"}},
+    btn({style:{background:"none",border:"none",color:"#333",fontSize:"11px",cursor:"pointer",textDecoration:"underline"},onClick:function(){S.screen="setup";render();}},"修改目標")
+  ));
+  wrap.appendChild(body);return wrap;
 }
 
 function renderTasks(){
-  var today=getToday();
-  var tasks=state.dailyTasks[today]||[];
-  var wrap=div({className:"page"});
-  var hdr=div({className:"nav-header"});
-  hdr.appendChild(btn({className:"btn-back",onClick:function(){setState({screen:"main"});}}, "←"));
-  var htxt=div({});htxt.appendChild(div({className:"label"},"今日任務"));htxt.appendChild(div({style:{fontSize:"20px",fontWeight:"bold"}},today));
-  hdr.appendChild(htxt);wrap.appendChild(hdr);
-
-  var body=div({style:{padding:"16px 20px"}});
-  // add row
-  var taskVal="",expVal="10";
-  var addRow=div({style:{display:"flex",gap:"8px",marginBottom:"4px"}});
-  var ti=el("input",{type:"text",className:"input-base",placeholder:"新增任務…",style:{flex:"1"}});
-  var expSel=el("select",{});
-  [5,10,15,20,30,50].forEach(function(v){var o=el("option",{value:String(v)},v+"exp");expSel.appendChild(o);});
-  var ab=btn({style:{background:"#c8a86b",border:"none",borderRadius:"10px",width:"44px",cursor:"pointer",fontSize:"20px",color:"#0a0a10",fontWeight:"bold"},onClick:function(){
+  var td=today();var tasks=S.tasks[td]||[];
+  var wrap=div({cls:"pg"});
+  var hd=div({cls:"hdr"});
+  hd.appendChild(btn({cls:"back",onClick:function(){S.screen="main";render();}},"←"));
+  var ht=div({});ht.appendChild(div({cls:"lbl"},"今日任務"));ht.appendChild(div({style:{fontSize:"19px",fontWeight:"bold"}},td));
+  hd.appendChild(ht);wrap.appendChild(hd);
+  var body=div({style:{padding:"14px 18px"}});
+  var ti=inp({type:"text",cls:"inp",placeholder:"新增任務…",style:{flex:"1",marginBottom:"0"}});
+  var es=h("select",{});
+  [5,10,15,20,30,50].forEach(function(v){es.appendChild(h("option",{value:String(v)},v+"exp"));});
+  var ar=div({style:{display:"flex",gap:"8px",marginBottom:"12px"}});
+  ar.appendChild(ti);ar.appendChild(es);
+  ar.appendChild(btn({style:{background:"#c8a86b",border:"none",borderRadius:"10px",width:"44px",fontSize:"20px",color:"#0a0a10",fontWeight:"bold",cursor:"pointer"},onClick:function(){
     var t=ti.value.trim();if(!t)return;
-    addTask(t,expSel.value);ti.value="";
-  }},"+");
-  addRow.appendChild(ti);addRow.appendChild(expSel);addRow.appendChild(ab);
-  body.appendChild(addRow);
-  body.appendChild(div({style:{fontSize:"11px",color:"#3a3a4a",marginBottom:"16px",paddingLeft:"2px"}},"選擇難度 → 對應EXP獎勵"));
-
-  if(!tasks.length){body.appendChild(div({style:{textAlign:"center",color:"#2a2a3a",fontSize:"13px",marginTop:"40px"}},"今天還沒有任務，新增一個吧"));}
+    var list=S.tasks[td]||[];
+    var nt=Object.assign({},S.tasks);nt[td]=list.concat([{id:Date.now(),text:t,exp:parseInt(es.value)||10,done:false}]);
+    S.tasks=nt;lsSet("g-tasks",nt);ti.value="";render();
+  }},"+"));
+  body.appendChild(ar);
+  if(!tasks.length){body.appendChild(div({style:{textAlign:"center",color:"#333",fontSize:"13px",marginTop:"30px"}},"今天還沒有任務"));}
   tasks.forEach(function(task){
-    var row=div({className:"task-row",style:{opacity:task.done?"0.5":"1",border:task.done?"1px solid #1a1a24":"1px solid #2a2a3a"}});
-    var cb=btn({style:{width:"24px",height:"24px",borderRadius:"50%",border:task.done?"none":"2px solid #c8a86b",background:task.done?"#c8a86b":"transparent",cursor:task.done?"default":"pointer",flexShrink:"0",fontSize:"11px",color:"#0a0a10",display:"flex",alignItems:"center",justifyContent:"center"},onClick:function(){completeTask(task.id);}},task.done?"✓":"");
-    row.appendChild(cb);
+    var row=div({cls:"trow",style:{opacity:task.done?"0.5":"1",border:task.done?"1px solid #1a1a24":"1px solid #2a2a3a"}});
+    row.appendChild(btn({style:{width:"24px",height:"24px",borderRadius:"50%",border:task.done?"none":"2px solid #c8a86b",background:task.done?"#c8a86b":"transparent",flexShrink:"0",fontSize:"11px",color:"#0a0a10",cursor:task.done?"default":"pointer"},onClick:function(){
+      if(task.done)return;
+      var nt=Object.assign({},S.tasks);nt[td]=(S.tasks[td]||[]).map(function(t){return t.id===task.id?Object.assign({},t,{done:true}):t;});
+      S.tasks=nt;lsSet("g-tasks",nt);
+      addExp(task.exp);pushLedger({date:td,type:"task",label:task.text,value:task.exp});bump();
+      flash("+"+task.exp+" EXP 任務完成！");render();
+    }},task.done?"✓":""));
     row.appendChild(div({style:{flex:"1",fontSize:"14px",textDecoration:task.done?"line-through":"none",color:task.done?"#555":"#e2ddd4"}},task.text));
-    row.appendChild(span({className:"tag"},"+"+task.exp));
-    if(!task.done){row.appendChild(btn({style:{background:"none",border:"none",color:"#444",cursor:"pointer",fontSize:"18px",padding:"0 4px"},onClick:function(){deleteTask(task.id);}},"×"));}
+    row.appendChild(sp({style:{fontSize:"11px",color:"#c8a86b",background:"#1e1a10",padding:"2px 8px",borderRadius:"20px"}},"+"+task.exp));
+    if(!task.done)row.appendChild(btn({style:{background:"none",border:"none",color:"#444",fontSize:"18px",cursor:"pointer"},onClick:function(){
+      var nt=Object.assign({},S.tasks);nt[td]=(S.tasks[td]||[]).filter(function(t){return t.id!==task.id;});
+      S.tasks=nt;lsSet("g-tasks",nt);render();
+    }},"×"));
     body.appendChild(row);
   });
-  wrap.appendChild(body);
-  return wrap;
+  wrap.appendChild(body);return wrap;
 }
 
 function renderLedger(){
-  var today=getToday();
-  var wrap=div({className:"page"});
-  var hdr=div({className:"nav-header"});
-  hdr.appendChild(btn({className:"btn-back",onClick:function(){setState({screen:"main"});}}, "←"));
-  var htxt=div({});htxt.appendChild(div({className:"label"},"了凡功過表"));htxt.appendChild(div({style:{fontSize:"20px",fontWeight:"bold"}},"行為帳本"));
-  hdr.appendChild(htxt);wrap.appendChild(hdr);
-
-  var body=div({style:{padding:"16px 20px"}});
-  var ps=div({style:{display:"flex",gap:"8px",marginBottom:"20px"}});
-  var mp=div({className:"pill",style:{border:"1px solid #6bc88a22"}});mp.appendChild(div({className:"pill-label",style:{color:"#6bc88a"}},"累積功德"));mp.appendChild(div({className:"pill-val",style:{color:"#6bc88a"}},String(state.merit)));
-  var dp=div({className:"pill",style:{border:"1px solid #e06b6b22"}});dp.appendChild(div({className:"pill-label",style:{color:"#e06b6b"}},"累積過失"));dp.appendChild(div({className:"pill-val",style:{color:"#e06b6b"}},String(state.demerit)));
-  ps.appendChild(mp);ps.appendChild(dp);body.appendChild(ps);
-
-  body.appendChild(div({className:"label"},"今日記錄功德"));
-  var mrow=div({style:{display:"flex",flexWrap:"wrap",marginBottom:"20px"}});
-  MERIT_LIST.forEach(function(item){
-    var key=today+"__"+item.id;var checked=state.checkedMerits[key];
-    var c=btn({className:"chip",style:{borderColor:checked?"#6bc88a":"#2a2a3a",background:checked?"#1a2a1e":"#13131c",color:checked?"#6bc88a":"#888",cursor:checked?"default":"pointer"},onClick:function(){toggleMerit(item);}});
-    if(checked)c.appendChild(span({style:{fontSize:"10px"}},"✓ "));
+  var td=today();
+  var wrap=div({cls:"pg"});
+  var hd=div({cls:"hdr"});
+  hd.appendChild(btn({cls:"back",onClick:function(){S.screen="main";render();}},"←"));
+  var ht=div({});ht.appendChild(div({cls:"lbl"},"了凡功過表"));ht.appendChild(div({style:{fontSize:"19px",fontWeight:"bold"}},"行為帳本"));
+  hd.appendChild(ht);wrap.appendChild(hd);
+  var body=div({style:{padding:"14px 18px"}});
+  body.appendChild(pills(pill("累積功德",S.merit,"#6bc88a"),pill("累積過失",S.demerit,"#e06b6b")));
+  body.appendChild(div({cls:"lbl"},"今日記錄功德"));
+  var mw=div({style:{display:"flex",flexWrap:"wrap",marginBottom:"18px"}});
+  ML.forEach(function(item){
+    var k=td+"__"+item.id;var ck=S.cm[k];
+    var c=btn({cls:"chip",style:{borderColor:ck?"#6bc88a":"#2a2a3a",background:ck?"#1a2a1e":"#13131c",color:ck?"#6bc88a":"#888",cursor:ck?"default":"pointer"},onClick:function(){
+      if(ck)return;S.cm[k]=true;lsSet("g-cm",S.cm);
+      S.merit+=item.merit;lsSet("g-merit",S.merit);
+      addExp(item.exp);pushLedger({date:td,type:"merit",label:item.label,merit:item.merit,exp:item.exp});bump();
+      flash("+"+item.merit+" 功 +"+item.exp+" EXP","#6bc88a");render();
+    }});
+    if(ck)c.appendChild(sp({style:{fontSize:"10px"}},"✓ "));
     c.appendChild(document.createTextNode(item.label));
-    c.appendChild(span({style:{fontSize:"10px",color:"#444",marginLeft:"4px"}},"+"+item.merit+"功"));
-    mrow.appendChild(c);
+    c.appendChild(sp({style:{fontSize:"10px",color:"#444"}}," +"+item.merit+"功"));
+    mw.appendChild(c);
   });
-  body.appendChild(mrow);
-
-  body.appendChild(div({className:"label"},"今日記錄過失"));
-  var drow=div({style:{display:"flex",flexWrap:"wrap",marginBottom:"24px"}});
-  DEMERIT_LIST.forEach(function(item){
-    var key=today+"__"+item.id;var checked=state.checkedDemerits[key];
-    var c=btn({className:"chip",style:{borderColor:checked?"#e06b6b":"#2a2a3a",background:checked?"#2a1a1a":"#13131c",color:checked?"#e06b6b":"#888",cursor:checked?"default":"pointer"},onClick:function(){toggleDemerit(item);}});
-    if(checked)c.appendChild(span({style:{fontSize:"10px"}},"✗ "));
+  body.appendChild(mw);
+  body.appendChild(div({cls:"lbl"},"今日記錄過失"));
+  var dw=div({style:{display:"flex",flexWrap:"wrap",marginBottom:"20px"}});
+  DL.forEach(function(item){
+    var k=td+"__"+item.id;var ck=S.cd[k];
+    var c=btn({cls:"chip",style:{borderColor:ck?"#e06b6b":"#2a2a3a",background:ck?"#2a1a1a":"#13131c",color:ck?"#e06b6b":"#888",cursor:ck?"default":"pointer"},onClick:function(){
+      if(ck)return;S.cd[k]=true;lsSet("g-cd",S.cd);
+      S.demerit+=item.demerit;lsSet("g-demerit",S.demerit);
+      pushLedger({date:td,type:"demerit",label:item.label,demerit:item.demerit});
+      flash("+"+item.demerit+" 過","#e06b6b");render();
+    }});
+    if(ck)c.appendChild(sp({style:{fontSize:"10px"}},"✗ "));
     c.appendChild(document.createTextNode(item.label));
-    c.appendChild(span({style:{fontSize:"10px",color:"#444",marginLeft:"4px"}},"+"+item.demerit+"過"));
-    drow.appendChild(c);
+    c.appendChild(sp({style:{fontSize:"10px",color:"#444"}}," +"+item.demerit+"過"));
+    dw.appendChild(c);
   });
-  body.appendChild(drow);
-
-  body.appendChild(div({className:"label"},"歷史帳本"));
-  state.ledger.slice(0,40).forEach(function(e){
-    var row=div({className:"ledger-row"});
+  body.appendChild(dw);
+  body.appendChild(div({cls:"lbl"},"歷史帳本"));
+  S.ledger.slice(0,40).forEach(function(e){
+    var row=div({cls:"lrow"});
     var left=div({style:{display:"flex",alignItems:"center",gap:"10px"}});
-    left.appendChild(span({style:{fontSize:"15px"}},e.type==="merit"?"✦":e.type==="demerit"?"✧":e.type==="quest"?"◈":"⚔"));
+    left.appendChild(sp({style:{fontSize:"14px"}},e.type==="merit"?"✦":e.type==="demerit"?"✧":e.type==="quest"?"◈":"⚔"));
     var info=div({});
-    info.appendChild(div({style:{fontSize:"13px",maxWidth:"190px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},e.label));
+    info.appendChild(div({style:{fontSize:"13px",maxWidth:"185px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},e.label));
     info.appendChild(div({style:{fontSize:"10px",color:"#444"}},e.date));
     left.appendChild(info);row.appendChild(left);
-    var right=div({style:{textAlign:"right",fontSize:"12px"}});
-    if(e.type==="merit")right.appendChild(span({style:{color:"#6bc88a"}},"+"+e.merit+"功 +"+e.exp+"exp"));
-    if(e.type==="demerit")right.appendChild(span({style:{color:"#e06b6b"}},"+"+e.demerit+"過"));
-    if(e.type==="task"||e.type==="quest")right.appendChild(span({style:{color:"#c8a86b"}},"+"+e.value+"exp"));
+    var right=div({style:{fontSize:"12px",textAlign:"right"}});
+    if(e.type==="merit")right.appendChild(sp({style:{color:"#6bc88a"}},"+"+e.merit+"功 +"+e.exp+"exp"));
+    if(e.type==="demerit")right.appendChild(sp({style:{color:"#e06b6b"}},"+"+e.demerit+"過"));
+    if(e.type==="task"||e.type==="quest")right.appendChild(sp({style:{color:"#c8a86b"}},"+"+e.value+"exp"));
     row.appendChild(right);body.appendChild(row);
   });
-  wrap.appendChild(body);
-  return wrap;
+  wrap.appendChild(body);return wrap;
 }
 
 function renderWeight(){
-  var today=getToday();
-  var wrap=div({className:"page"});
-  var hdr=div({className:"nav-header"});
-  hdr.appendChild(btn({className:"btn-back",onClick:function(){setState({screen:"main"});}}, "←"));
-  var htxt=div({});htxt.appendChild(div({className:"label"},"身體追蹤"));htxt.appendChild(div({style:{fontSize:"20px",fontWeight:"bold"}},"體重紀錄"));
-  hdr.appendChild(htxt);wrap.appendChild(hdr);
-
-  var body=div({style:{padding:"16px 20px"}});
-  var wc=div({className:"card"});
-  wc.appendChild(div({className:"label"},"今日體重（kg）"));
+  var td=today();
+  var wrap=div({cls:"pg"});
+  var hd=div({cls:"hdr"});
+  hd.appendChild(btn({cls:"back",onClick:function(){S.screen="main";render();}},"←"));
+  var ht=div({});ht.appendChild(div({cls:"lbl"},"身體追蹤"));ht.appendChild(div({style:{fontSize:"19px",fontWeight:"bold"}},"體重紀錄"));
+  hd.appendChild(ht);wrap.appendChild(hd);
+  var body=div({style:{padding:"14px 18px"}});
+  var wc=div({cls:"card"});
+  wc.appendChild(div({cls:"lbl"},"今日體重（kg）"));
   var wr=div({style:{display:"flex",gap:"8px"}});
-  var wi=el("input",{type:"number",className:"input-base",placeholder:"今天："+（state.weights[today]||"未記錄"）,style:{flex:"1"}});
-  var wb=btn({style:{background:"#7bc8e0",border:"none",borderRadius:"10px",padding:"0 18px",color:"#0a0a10",fontSize:"14px",fontWeight:"bold",cursor:"pointer",whiteSpace:"nowrap",height:"44px"},onClick:function(){
+  var existing=S.weights[td]?"今天："+S.weights[td]:"未記錄";
+  var wi=inp({type:"number",cls:"inp",placeholder:existing,style:{flex:"1"}});
+  wr.appendChild(wi);
+  wr.appendChild(btn({style:{background:"#7bc8e0",border:"none",borderRadius:"10px",padding:"0 16px",color:"#0a0a10",fontSize:"14px",fontWeight:"bold",cursor:"pointer",height:"44px",whiteSpace:"nowrap"},onClick:function(){
     var w=parseFloat(wi.value);if(isNaN(w)||w<20||w>300)return;
-    logWeight(w);wi.value="";
-  }},"記錄");
-  wr.appendChild(wi);wr.appendChild(wb);wc.appendChild(wr);
-  var entries=Object.entries(state.weights).sort(function(a,b){return a[0]>b[0]?1:-1;});
-  var tw=state.goal?state.goal.targetWeight:null;
-  var latestW=entries.length?entries[entries.length-1][1]:null;
-  if(tw&&latestW){
-    var diff=(latestW-tw).toFixed(1);
-    var dtext=div({style:{marginTop:"10px",fontSize:"12px",color:"#888"}});
-    dtext.appendChild(document.createTextNode("目標："));dtext.appendChild(span({style:{color:"#c8a86b"}},tw+"kg"));
-    dtext.appendChild(document.createTextNode("　目前："));dtext.appendChild(span({style:{color:"#7bc8e0"}},latestW+"kg"));
-    dtext.appendChild(document.createTextNode("　差距："));dtext.appendChild(span({style:{color:latestW>tw?"#e06b6b":"#6bc88a"}},(diff>0?"+":"")+diff+"kg"));
-    wc.appendChild(dtext);
+    var nw=Object.assign({},S.weights);nw[td]=w;S.weights=nw;lsSet("g-weights",nw);
+    wi.value="";flash("體重記錄："+w+" kg","#7bc8e0");render();
+  }},"記錄"));
+  wc.appendChild(wr);
+  var entries=Object.entries(S.weights).sort(function(a,b){return a[0]>b[0]?1:-1;});
+  var tw=S.goal?S.goal.targetWeight:null;
+  var lw=entries.length?entries[entries.length-1][1]:null;
+  if(tw&&lw){
+    var diff=(lw-tw).toFixed(1);
+    var dt2=div({style:{marginTop:"10px",fontSize:"12px",color:"#888"}});
+    dt2.appendChild(document.createTextNode("目標："));dt2.appendChild(sp({style:{color:"#c8a86b"}},tw+"kg"));
+    dt2.appendChild(document.createTextNode(" 目前："));dt2.appendChild(sp({style:{color:"#7bc8e0"}},lw+"kg"));
+    dt2.appendChild(document.createTextNode(" 差距："));dt2.appendChild(sp({style:{color:lw>tw?"#e06b6b":"#6bc88a"}},(diff>0?"+":"")+diff+"kg"));
+    wc.appendChild(dt2);
   }
   body.appendChild(wc);
 
-  // chart
+  // SVG chart
   var chartData=entries.slice(-30).map(function(e){return{date:e[0].slice(5),w:e[1]};});
   if(chartData.length>1){
-    var cc=div({className:"card"});
-    cc.appendChild(div({className:"label"},"體重趨勢（近30天）"));
-    var chart=makeChart(chartData,tw);
-    if(chart){cc.appendChild(chart);}
-    if(tw)cc.appendChild(div({style:{fontSize:"10px",color:"#555",textAlign:"right",marginTop:"4px"}},"-- 目標線："+tw+"kg"));
-    body.appendChild(cc);
+    var gc=div({cls:"card"});gc.appendChild(div({cls:"lbl"},"體重趨勢"));
+    var W=Math.min(window.innerWidth-56,400),H=140;
+    var vals=chartData.map(function(d){return d.w;});
+    if(tw)vals.push(tw);
+    var mn=Math.min.apply(null,vals)-1,mx=Math.max.apply(null,vals)+1;
+    var svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg.setAttribute("width",W);svg.setAttribute("height",H+20);svg.style.display="block";
+    function px(i){return Math.round(i/(chartData.length-1)*W);}
+    function py(v){return Math.round(H-((v-mn)/(mx-mn))*H);}
+    if(tw){var tl=document.createElementNS("http://www.w3.org/2000/svg","line");var ty=py(tw);tl.setAttribute("x1","0");tl.setAttribute("y1",ty);tl.setAttribute("x2",W);tl.setAttribute("y2",ty);tl.setAttribute("stroke","#c8a86b");tl.setAttribute("stroke-dasharray","4 4");tl.setAttribute("stroke-width","1.5");svg.appendChild(tl);}
+    var pts=chartData.map(function(d,i){return px(i)+","+py(d.w);}).join(" ");
+    var pl2=document.createElementNS("http://www.w3.org/2000/svg","polyline");
+    pl2.setAttribute("points",pts);pl2.setAttribute("fill","none");pl2.setAttribute("stroke","#7bc8e0");pl2.setAttribute("stroke-width","2");
+    svg.appendChild(pl2);
+    chartData.forEach(function(d,i){
+      if(i===0||i===chartData.length-1||i%Math.max(1,Math.floor(chartData.length/5))===0){
+        var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",px(i));c.setAttribute("cy",py(d.w));c.setAttribute("r","3");c.setAttribute("fill","#7bc8e0");svg.appendChild(c);
+        var t=document.createElementNS("http://www.w3.org/2000/svg","text");
+        t.setAttribute("x",px(i));t.setAttribute("y",H+14);t.setAttribute("text-anchor","middle");t.setAttribute("fill","#555");t.setAttribute("font-size","9");t.textContent=d.date;svg.appendChild(t);
+      }
+    });
+    gc.appendChild(svg);body.appendChild(gc);
   } else {
-    body.appendChild(div({className:"card",style:{textAlign:"center",color:"#333",fontSize:"13px",padding:"28px"}},"記錄兩天以上後顯示趨勢圖"));
+    body.appendChild(div({cls:"card",style:{textAlign:"center",color:"#333",fontSize:"13px",padding:"24px"}},"記錄兩天以上後顯示趨勢圖"));
   }
 
-  // history
-  var hc=div({className:"card"});
-  hc.appendChild(div({className:"label"},"歷史紀錄"));
+  var hc=div({cls:"card"});hc.appendChild(div({cls:"lbl"},"歷史紀錄"));
   entries.slice().reverse().slice(0,14).forEach(function(e){
     var row=div({style:{display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:"1px solid #1a1a24",fontSize:"13px"}});
-    row.appendChild(span({style:{color:"#888"}},e[0]));
-    row.appendChild(span({style:{color:"#7bc8e0",fontWeight:"bold"}},e[1]+" kg"));
+    row.appendChild(sp({style:{color:"#888"}},e[0]));row.appendChild(sp({style:{color:"#7bc8e0",fontWeight:"bold"}},e[1]+" kg"));
     hc.appendChild(row);
   });
-  body.appendChild(hc);
-  wrap.appendChild(body);
-  return wrap;
+  body.appendChild(hc);wrap.appendChild(body);return wrap;
 }
 
 function renderReview(){
-  var wrap=div({className:"page"});
-  var hdr=div({className:"nav-header"});
-  hdr.appendChild(btn({className:"btn-back",onClick:function(){setState({screen:"main"});}}, "←"));
-  var htxt=div({});htxt.appendChild(div({className:"label"},"12週計劃"));htxt.appendChild(div({style:{fontSize:"20px",fontWeight:"bold"}},"週回顧"));
-  hdr.appendChild(htxt);wrap.appendChild(hdr);
+  var wrap=div({cls:"pg"});
+  var hd=div({cls:"hdr"});
+  hd.appendChild(btn({cls:"back",onClick:function(){S.screen="main";render();}},"←"));
+  var ht=div({});ht.appendChild(div({cls:"lbl"},"12週計劃"));ht.appendChild(div({style:{fontSize:"19px",fontWeight:"bold"}},"週回顧"));
+  hd.appendChild(ht);wrap.appendChild(hd);
+  var body=div({style:{padding:"14px 18px"}});
+  var wn=S.goal?weekNum(S.goal.startDate):1;
 
-  var body=div({style:{padding:"14px 20px"}});
-
-  // week selector
-  var wsel=div({style:{display:"flex",gap:"6px",overflowX:"auto",paddingBottom:"10px"}});
-  var weekNum=state.goal?getWeekNum(state.goal.startDate):1;
-  for(var wn=1;wn<=TOTAL_WEEKS;wn++){
+  // week tabs
+  var ws=div({style:{display:"flex",gap:"6px",overflowX:"auto",paddingBottom:"10px"}});
+  for(var wi=1;wi<=WKS;wi++){
     (function(w){
-      var isSel=state.reviewWeek===w;
-      var b=btn({className:"w-review-btn",style:{
-        border:"1px solid",borderColor:isSel?"#c8a86b":"#22222e",
-        background:isSel?"#c8a86b":"transparent",color:isSel?"#0a0a10":"#666",
-        opacity:w>weekNum?"0.4":"1",
-      },onClick:function(){setState({reviewWeek:w});}}, "W"+w);
-      wsel.appendChild(b);
-    })(wn);
+      var sel=S.rw===w;
+      ws.appendChild(btn({style:{flexShrink:"0",padding:"5px 13px",borderRadius:"20px",border:"1px solid "+(sel?"#c8a86b":"#22222e"),background:sel?"#c8a86b":"transparent",color:sel?"#0a0a10":"#666",fontSize:"12px",cursor:"pointer",opacity:w>wn?"0.4":"1"},onClick:function(){S.rw=w;render();}},"W"+w));
+    })(wi);
   }
-  body.appendChild(wsel);
+  body.appendChild(ws);
 
-  // stats
-  var rw=state.reviewWeek;
-  var dates=state.goal?getWeekDates(rw,state.goal.startDate):[];
-  var totalT=0,doneT=0,totalExp=0,totalM=0,totalD=0,totalQ=0;
+  var dates=S.goal?weekDates(S.rw,S.goal.startDate):[];
+  var tt=0,dt=0,te=0,tm=0,tde=0,tq=0;
   dates.forEach(function(d){
-    var tasks=state.dailyTasks[d]||[];
-    totalT+=tasks.length;doneT+=tasks.filter(function(t){return t.done;}).length;
-    getDailyQuests(d).forEach(function(q){if(state.completedQuests[d+"__"+q.id])totalQ++;});
+    var tasks=S.tasks[d]||[];tt+=tasks.length;dt+=tasks.filter(function(t){return t.done;}).length;
+    dailyQ(d).forEach(function(q){if(S.cq[d+"__"+q.id])tq++;});
   });
-  state.ledger.filter(function(e){return dates.indexOf(e.date)>=0;}).forEach(function(e){
-    if(e.exp)totalExp+=e.exp;if(e.merit)totalM+=e.merit;if(e.demerit)totalD+=e.demerit;
+  S.ledger.filter(function(e){return dates.indexOf(e.date)>=0;}).forEach(function(e){
+    if(e.exp)te+=e.exp;if(e.merit)tm+=e.merit;if(e.demerit)tde+=e.demerit;
   });
-  var cr=totalT?Math.round(doneT/totalT*100):0;
+  var cr=tt?Math.round(dt/tt*100):0;
 
   if(dates.length){
-    body.appendChild(div({style:{fontSize:"11px",color:"#555",letterSpacing:"2px",marginBottom:"10px",textTransform:"uppercase"}},dates[0]+" — "+dates[6]));
-    var p1=div({style:{display:"flex",gap:"8px",marginBottom:"10px"}});
-    [["完成率",cr+"%","#c8a86b"],["EXP",totalExp,"#a87bde"],["天命",totalQ,"#7bc8e0"]].forEach(function(p){
-      var pl=div({className:"pill",style:{border:"1px solid "+p[2]+"22"}});
-      pl.appendChild(div({className:"pill-label",style:{color:p[2]}},p[0]));
-      pl.appendChild(div({className:"pill-val",style:{color:p[2]}},String(p[1])));
-      p1.appendChild(pl);
-    });
-    body.appendChild(p1);
-    var p2=div({style:{display:"flex",gap:"8px",marginBottom:"14px"}});
-    [["功德",totalM,"#6bc88a"],["過失",totalD,"#e06b6b"],["任務",doneT+"/"+totalT,"#888"]].forEach(function(p){
-      var pl=div({className:"pill",style:{border:"1px solid "+p[2]+"22"}});
-      pl.appendChild(div({className:"pill-label",style:{color:p[2]}},p[0]));
-      pl.appendChild(div({className:"pill-val",style:{color:p[2]}},String(p[1])));
-      p2.appendChild(pl);
-    });
-    body.appendChild(p2);
+    body.appendChild(div({style:{fontSize:"11px",color:"#555",marginBottom:"10px"}},dates[0]+" — "+dates[6]));
+    body.appendChild(pills(pill("完成率",cr+"%","#c8a86b"),pill("EXP",te,"#a87bde"),pill("天命",tq,"#7bc8e0")));
+    body.appendChild(pills(pill("功德",tm,"#6bc88a"),pill("過失",tde,"#e06b6b"),pill("任務",dt+"/"+tt,"#888")));
 
-    // daily bars
-    var bc=div({className:"card"});
-    bc.appendChild(div({className:"label"},"每日完成狀況"));
-    var brow=div({style:{display:"flex",gap:"4px"}});
+    var bc=div({cls:"card"});bc.appendChild(div({cls:"lbl"},"每日完成狀況"));
+    var br=div({style:{display:"flex",gap:"4px"}});
     dates.forEach(function(d){
-      var tasks=state.dailyTasks[d]||[];
-      var done=tasks.filter(function(t){return t.done;}).length;
-      var total=tasks.length;var pct=total?done/total:0;
+      var tasks=S.tasks[d]||[];var done=tasks.filter(function(t){return t.done;}).length;var total=tasks.length;
+      var pct=total?done/total:0;
       var wd=["日","一","二","三","四","五","六"][new Date(d+"T12:00:00").getDay()];
       var col=div({style:{flex:"1",display:"flex",flexDirection:"column",alignItems:"center",gap:"4px"}});
       col.appendChild(div({style:{fontSize:"9px",color:"#555"}},wd));
-      var bar=div({style:{height:"40px",width:"100%",background:"#0d0d16",borderRadius:"4px",display:"flex",alignItems:"flex-end"}});
-      bar.appendChild(div({style:{width:"100%",height:(pct*100)+"%",background:"#c8a86b",borderRadius:"4px",minHeight:pct>0?"4px":"0"}}));
-      col.appendChild(bar);
-      col.appendChild(div({style:{fontSize:"9px",color:"#666"}},done+"/"+total));
-      brow.appendChild(col);
+      var bar=div({style:{height:"36px",width:"100%",background:"#0d0d16",borderRadius:"4px",display:"flex",alignItems:"flex-end"}});
+      bar.appendChild(div({style:{width:"100%",height:(pct*100)+"%",background:"#c8a86b",borderRadius:"4px",minHeight:pct>0?"3px":"0"}}));
+      col.appendChild(bar);col.appendChild(div({style:{fontSize:"9px",color:"#666"}},done+"/"+total));
+      br.appendChild(col);
     });
-    bc.appendChild(brow);body.appendChild(bc);
+    bc.appendChild(br);body.appendChild(bc);
   }
 
-  // review textarea
-  var rc=div({className:"card"});
-  rc.appendChild(div({className:"label"},"本週反思心得"));
-  var ta=el("textarea",{className:"input-base",placeholder:"這週有什麼收穫？遇到什麼阻礙？下週想調整什麼？",style:{resize:"none",height:"110px",marginBottom:"10px"}});
-  ta.value=state.weekReviews[rw]||"";
-  rc.appendChild(ta);
-  rc.appendChild(btn({style:{width:"100%",padding:"10px",background:"#6bc88a22",border:"1px solid #6bc88a",borderRadius:"10px",color:"#6bc88a",fontSize:"13px",cursor:"pointer"},onClick:function(){saveReview(rw,ta.value);}},"儲存反思 ✓"));
-  body.appendChild(rc);
-  wrap.appendChild(body);
-  return wrap;
+  var rc=div({cls:"card"});rc.appendChild(div({cls:"lbl"},"本週反思心得"));
+  var rta=ta({cls:"inp",placeholder:"這週有什麼收穫？遇到什麼阻礙？下週想調整什麼？",style:{resize:"none",height:"100px",marginBottom:"10px"}});
+  rta.value=S.reviews[S.rw]||"";
+  rc.appendChild(rta);
+  rc.appendChild(btn({style:{width:"100%",padding:"10px",background:"#6bc88a22",border:"1px solid #6bc88a",borderRadius:"10px",color:"#6bc88a",fontSize:"13px",cursor:"pointer"},onClick:function(){
+    var nr=Object.assign({},S.reviews);nr[S.rw]=rta.value;S.reviews=nr;lsSet("g-reviews",nr);
+    flash("週回顧已儲存","#6bc88a");
+  }},"儲存反思 ✓"));
+  body.appendChild(rc);wrap.appendChild(body);return wrap;
 }
 
-// ── Render ────────────────────────────────────────────────
 function render(){
-  var app=document.getElementById("app");
-  app.innerHTML="";
-
-  // flash
-  var f=div({id:"flash",className:"flash",style:{opacity:"0",borderColor:"#c8a86b",color:"#c8a86b",border:"1px solid #c8a86b"}});
-  app.appendChild(f);
-
-  var screen;
-  if(!state.goal||state.screen==="setup"){screen=renderSetup();}
-  else if(state.screen==="tasks"){screen=renderTasks();}
-  else if(state.screen==="ledger"){screen=renderLedger();}
-  else if(state.screen==="weight"){screen=renderWeight();}
-  else if(state.screen==="review"){screen=renderReview();}
-  else{screen=renderMain();}
-  app.appendChild(screen);
+  var root=document.getElementById("root");
+  root.innerHTML="";
+  var sc;
+  if(!S.goal||S.screen==="setup")sc=renderSetup();
+  else if(S.screen==="tasks")sc=renderTasks();
+  else if(S.screen==="ledger")sc=renderLedger();
+  else if(S.screen==="weight")sc=renderWeight();
+  else if(S.screen==="review")sc=renderReview();
+  else sc=renderMain();
+  root.appendChild(sc);
 }
-
-// Fix placeholder syntax issue
-var origRenderWeight=renderWeight;
-renderWeight=function(){
-  var today=getToday();
-  var wrap=div({className:"page"});
-  var hdr=div({className:"nav-header"});
-  hdr.appendChild(btn({className:"btn-back",onClick:function(){setState({screen:"main"});}}, "←"));
-  var htxt=div({});htxt.appendChild(div({className:"label"},"身體追蹤"));htxt.appendChild(div({style:{fontSize:"20px",fontWeight:"bold"}},"體重紀錄"));
-  hdr.appendChild(htxt);wrap.appendChild(hdr);
-  var body=div({style:{padding:"16px 20px"}});
-  var wc=div({className:"card"});
-  wc.appendChild(div({className:"label"},"今日體重（kg）"));
-  var wr=div({style:{display:"flex",gap:"8px"}});
-  var existingVal=state.weights[today]?"今天："+state.weights[today]:"未記錄";
-  var wi=el("input",{type:"number",className:"input-base",placeholder:existingVal,style:{flex:"1"}});
-  var wb=btn({style:{background:"#7bc8e0",border:"none",borderRadius:"10px",padding:"0 18px",color:"#0a0a10",fontSize:"14px",fontWeight:"bold",cursor:"pointer",whiteSpace:"nowrap",height:"44px"},onClick:function(){
-    var w=parseFloat(wi.value);if(isNaN(w)||w<20||w>300)return;
-    logWeight(w);wi.value="";
-  }},"記錄");
-  wr.appendChild(wi);wr.appendChild(wb);wc.appendChild(wr);
-  var entries=Object.entries(state.weights).sort(function(a,b){return a[0]>b[0]?1:-1;});
-  var tw=state.goal?state.goal.targetWeight:null;
-  var latestW=entries.length?entries[entries.length-1][1]:null;
-  if(tw&&latestW){
-    var diff=(latestW-tw).toFixed(1);
-    var dtext=div({style:{marginTop:"10px",fontSize:"12px",color:"#888"}});
-    dtext.appendChild(document.createTextNode("目標："));dtext.appendChild(span({style:{color:"#c8a86b"}},tw+"kg"));
-    dtext.appendChild(document.createTextNode("　目前："));dtext.appendChild(span({style:{color:"#7bc8e0"}},latestW+"kg"));
-    dtext.appendChild(document.createTextNode("　差距："));dtext.appendChild(span({style:{color:latestW>tw?"#e06b6b":"#6bc88a"}},(diff>0?"+":"")+diff+"kg"));
-    wc.appendChild(dtext);
-  }
-  body.appendChild(wc);
-  var chartData=entries.slice(-30).map(function(e){return{date:e[0].slice(5),w:e[1]};});
-  if(chartData.length>1){
-    var cc=div({className:"card"});
-    cc.appendChild(div({className:"label"},"體重趨勢（近30天）"));
-    var chart=makeChart(chartData,tw);
-    if(chart){cc.appendChild(chart);}
-    if(tw)cc.appendChild(div({style:{fontSize:"10px",color:"#555",textAlign:"right",marginTop:"4px"}},"-- 目標線："+tw+"kg"));
-    body.appendChild(cc);
-  } else {
-    body.appendChild(div({className:"card",style:{textAlign:"center",color:"#333",fontSize:"13px",padding:"28px"}},"記錄兩天以上後顯示趨勢圖"));
-  }
-  var hc=div({className:"card"});
-  hc.appendChild(div({className:"label"},"歷史紀錄"));
-  entries.slice().reverse().slice(0,14).forEach(function(e){
-    var row=div({style:{display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:"1px solid #1a1a24",fontSize:"13px"}});
-    row.appendChild(span({style:{color:"#888"}},e[0]));
-    row.appendChild(span({style:{color:"#7bc8e0",fontWeight:"bold"}},e[1]+" kg"));
-    hc.appendChild(row);
-  });
-  body.appendChild(hc);
-  wrap.appendChild(body);
-  return wrap;
-};
 
 render();
 </script>
